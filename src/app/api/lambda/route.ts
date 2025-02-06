@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const requestId = body.requestId;
 
     if (!requestId) {
-      console.error('request is not have requestId');
+      console.error('no requestId');
       return NextResponse.json({ error: 'requestId가 없습니다.' }, { status: 400 });
     }
     const isUUID = checkIsUUID(requestId);
