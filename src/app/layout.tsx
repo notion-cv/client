@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" data-theme="my_theme">
       <body className={`antialiased`}>{children}</body>
     </html>
   );

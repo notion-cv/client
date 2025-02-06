@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.741.0",
-    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/postcss": "^4.0.3",
     "next": "15.1.6",
@@ -22,6 +21,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "daisyui": "^5.0.0-beta.6",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",

@@ -1,5 +1,4 @@
 import { ROUTES } from '@/constants/routes';
-import { Button } from '@headlessui/react';
 import Link from 'next/link';
 
 export default function PreviewPage() {
@@ -7,9 +6,9 @@ export default function PreviewPage() {
     <div className="flex flex-col items-start gap-2">
       <h1 className="text-xl font-semibold text-red-500">PREVIEW PAGE</h1>
       <Link href={ROUTES.HOME}>
-        <Button className="cursor-pointer rounded-sm bg-gray-200 pt-2 pr-3 pb-2 pl-3">
-          <span className="text-sm font-semibold text-slate-900">홈으로 돌아가기</span>
-        </Button>
+        <button className="btn btn-error">
+          <span className="text-cobalt-500 text-sm font-semibold">홈으로 돌아가기</span>
+        </button>
       </Link>
     </div>
   );
