@@ -1,7 +1,7 @@
 import { InvokeCommand } from '@aws-sdk/client-lambda';
 import { NextResponse } from 'next/server';
 import { checkIsUUID } from '@/utils/uuid';
-import { lambdaClient } from '@/app/lib/aws/config';
+import { lambdaClient } from '@/lib/aws/config';
 import { InvokeLambdaDto } from '@/types/dto/lambda.dto';
 
 export async function POST(request: Request) {
