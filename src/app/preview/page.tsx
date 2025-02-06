@@ -3,13 +3,24 @@ import Link from 'next/link';
 
 export default function PreviewPage() {
   return (
-    <div className="flex flex-col items-start gap-2">
-      <h1 className="text-xl font-semibold text-red-500">PREVIEW PAGE</h1>
-      <Link href={ROUTES.HOME}>
-        <button className="btn btn-error">
-          <span className="text-cobalt-500 text-sm font-semibold">홈으로 돌아가기</span>
-        </button>
-      </Link>
+    <div className="flex h-full w-full justify-center">
+      <div className="grid h-full w-full max-w-360 grid-cols-4 gap-6 pt-6 pr-8 pb-6 pl-8">
+        <section className="col-span-3 rounded-lg border border-gray-300">
+          <figure></figure>
+        </section>
+        <section className="flex h-full flex-col justify-between">
+          <div className="col-span-1 flex flex-col items-start gap-2">
+            <Link href={ROUTES.HOME}>
+              <button className="btn btn-sm">다시 돌리기</button>
+            </Link>
+            <button className="btn btn-primary btn-sm">PDF 다운받기</button>
+          </div>
+          <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed border-gray-300 p-4">
+            <h5 className="font-bold text-gray-900">사용법을 잘 모르겠다면?</h5>
+            <button className="btn btn-outline btn-sm">사용가이드 보기</button>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
