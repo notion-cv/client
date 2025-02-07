@@ -1,6 +1,35 @@
 import { s3Client } from '@/lib/aws/config';
-import { DeleteObjectsCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { putTempZipDto } from '@/types/dto/s3.dto';
+import { DeleteObjectsCommand, ListObjectsV2Command, PutObjectCommand } from '@aws-sdk/client-s3';
 import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+  try {
+    const formData = await request.formData();
+    const file = formData.get('file') as File;
+    const fileId = formData.get('fileId') as string;
+
+    if (!file) {
+      return NextResponse.json({ error: '파일이 없습니다.' }, { status: 400 });
+    }
+
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const putCommand = new PutObjectCommand({
+      Bucket: process.env.AWS_NOTION_CV_BUCKET_NAME,
+      Key: `temp/${fileId}/${fileId}.zip`,
+      Body: buffer,
+    });
+
+    await s3Client.send(putCommand);
+    const resBody: putTempZipDto = { fileId };
+    return NextResponse.json(resBody, { status: 200 });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: '업로드에 실패했어요.' }, { status: 500 });
+  }
+}
 
 export async function DELETE(request: Request) {
   try {
