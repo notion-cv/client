@@ -1,3 +1,3 @@
 export interface InvokeLambdaDto {
-  id: string;
+  id: string | null;
 }

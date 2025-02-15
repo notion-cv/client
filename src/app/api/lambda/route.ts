@@ -28,9 +28,10 @@ export async function POST(request: Request) {
     const lambdaResponse = await lambdaClient.send(command);
     const result = new TextDecoder().decode(lambdaResponse.Payload);
     const parsed = JSON.parse(result);
+    const resBody = JSON.parse(parsed.body);
 
     const response: InvokeLambdaDto = {
-      id: parsed.requestId,
+      id: resBody.id,
     };
 
     return NextResponse.json(response);
