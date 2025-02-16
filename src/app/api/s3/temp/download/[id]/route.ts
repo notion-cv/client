@@ -3,7 +3,7 @@ import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: NextApiRequest, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   if (!id || typeof id !== 'string') {
     return NextResponse.json({ error: '유효한 ID가 아닙니다.' }, { status: 400 });
