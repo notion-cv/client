@@ -11,7 +11,7 @@ import { uploadZipFile } from '@/apis/s3';
 import { callPdfConverter } from '@/apis/lambda';
 import { putTempZipDto } from '@/types/dto/s3.dto';
 import { InvokeLambdaDto } from '@/types/dto/lambda.dto';
-import { useLoaderStore } from '@/store/useLoader';
+import { useLoaderStore } from '@/store/useLoaderStore';
 
 export default function UploadButton() {
   const router = useRouter();

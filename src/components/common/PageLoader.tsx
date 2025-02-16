@@ -1,6 +1,6 @@
 'use client';
 
-import { useLoaderStore } from '@/store/useLoader';
+import { useLoaderStore } from '@/store/useLoaderStore';
 
 export default function PageLoader() {
   const { isLoading, description } = useLoaderStore();
