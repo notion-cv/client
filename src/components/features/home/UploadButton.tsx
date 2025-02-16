@@ -11,10 +11,12 @@ import { uploadZipFile } from '@/apis/s3';
 import { callPdfConverter } from '@/apis/lambda';
 import { putTempZipDto } from '@/types/dto/s3.dto';
 import { InvokeLambdaDto } from '@/types/dto/lambda.dto';
+import { useLoaderStore } from '@/store/useLoader';
 
 export default function UploadButton() {
   const router = useRouter();
   const { saveFileId, resetFileId } = useFileStore();
+  const { startLoading, endLoading } = useLoaderStore();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,6 +37,7 @@ export default function UploadButton() {
         onFileChangeError();
         return;
       }
+      startLoading();
 
       // ZIP 파일 읽기
       const file = files[0];
@@ -43,29 +46,26 @@ export default function UploadButton() {
 
       const hasHtmlFile = checkHasHtmlFile(zipContents);
 
-      if (!hasHtmlFile) {
-        alert('HTML 파일이 없는 압축 파일이에요. 다시 확인해 주세요.');
-        onFileChangeError();
-        return;
-      }
+      if (!hasHtmlFile) throw new Error('HTML 파일이 없는 압축 파일이에요. 다시 확인해 주세요.');
+
       // s3 업로드
       const fileId = uuidv4();
       const res: putTempZipDto = await uploadZipFile(fileId, file);
-      if (!res.fileId) {
-        alert('일시적인 문제가 발생했습니다.');
-        onFileChangeError();
-        return;
-      }
+      if (!res.fileId) throw new Error('일시적인 문제가 발생했습니다.');
+
       const lambdaRes: InvokeLambdaDto = await callPdfConverter(fileId);
-      if (!lambdaRes.id) {
-        alert('PDF 변환에 실패했습니다.');
-        onFileChangeError();
-        return;
-      }
+      if (!lambdaRes.id) throw new Error('PDF 변환에 실패했습니다.');
+
       saveFileId(lambdaRes.id);
       router.push(ROUTES.PREVIEW);
+      endLoading();
     } catch (e) {
       console.error('Error: ', e);
+      if (e instanceof Error) {
+        alert(e.message);
+      }
+      endLoading();
+      onFileChangeError();
     }
   };
 

@@ -2,7 +2,8 @@ import { s3Client } from '@/lib/aws/config';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const id = params.id;
   if (!id || typeof id !== 'string') {
     return NextResponse.json({ error: '유효한 ID가 아닙니다.' }, { status: 400 });
