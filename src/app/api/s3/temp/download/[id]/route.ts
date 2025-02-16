@@ -1,6 +1,5 @@
 import { s3Client } from '@/lib/aws/config';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
