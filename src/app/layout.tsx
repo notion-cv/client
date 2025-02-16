@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layouts/Header';
+import PageLoader from '@/components/common/PageLoader';
 
 export const metadata: Metadata = {
   title: 'Notion CV',
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <Header />
         <main className="h-dvh max-h-dvh overflow-hidden pt-11">{children}</main>
+        <PageLoader />
       </body>
     </html>
   );

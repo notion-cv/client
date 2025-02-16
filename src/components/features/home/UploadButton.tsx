@@ -32,12 +32,8 @@ export default function UploadButton() {
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       const files = e.target.files;
-      if (!files || !files[0]) {
-        alert('업로드 된 파일이 없어요.');
-        onFileChangeError();
-        return;
-      }
-      startLoading();
+      if (!files || !files[0]) throw new Error('업로드 된 파일이 없어요.');
+      startLoading('PDF를 변환하고 있어요...');
 
       // ZIP 파일 읽기
       const file = files[0];
