@@ -1,3 +1,4 @@
+import { DownloadButton } from '@/components/features/preview/DownloadButton';
 import { ROUTES } from '@/constants/routes';
 import Link from 'next/link';
 
@@ -13,7 +14,7 @@ export default function PreviewPage() {
             <Link href={ROUTES.HOME}>
               <button className="btn btn-sm">다시 돌리기</button>
             </Link>
-            <button className="btn btn-primary btn-sm">PDF 다운받기</button>
+            <DownloadButton />
           </div>
           <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed border-gray-300 p-4">
             <h5 className="font-bold text-gray-900">사용법을 잘 모르겠다면?</h5>

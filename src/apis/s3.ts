@@ -9,6 +9,20 @@ export const uploadZipFile = async (fileId: string, zipFile: File) => {
   return response.json();
 };
 
+export const downloadPdfFile = async (fileId: string) => {
+  const response = await fetch(`/api/s3/temp/download/${fileId}`, {
+    method: 'GET',
+  });
+  console.log(response);
+  if (!response.ok) {
+    throw new Error('다운로드에 실패했습니다.');
+  }
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  return { fileUrl: url };
+};
+
 export const deleteTempDirectory = async (fileId: string) => {
   const response = await fetch('/api/s3/temp', {
     method: 'DELETE',
