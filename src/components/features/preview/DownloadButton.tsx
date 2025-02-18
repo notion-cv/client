@@ -42,8 +42,13 @@ export function DownloadButton() {
   };
 
   return (
-    <button className="btn btn-primary btn-sm" onClick={handleClickDownload}>
-      PDF 다운받기
-    </button>
+    <div className="flex w-full flex-col gap-1">
+      <button className="btn btn-primary btn-md btn-block" disabled={!fileId} onClick={handleClickDownload}>
+        PDF 다운받기
+      </button>
+      {!fileId && (
+        <span className="text-error text-xs font-medium">현재 업로드 된 파일이 없어요. 파일을 등록해 주세요.</span>
+      )}
+    </div>
   );
 }

@@ -13,9 +13,9 @@ export default function PreviewPage() {
           </span>
         </section>
         <section className="flex h-full flex-col justify-between">
-          <div className="col-span-1 flex flex-col items-start gap-2">
+          <div className="col-span-1 flex flex-col gap-2">
             <Link href={ROUTES.HOME}>
-              <button className="btn btn-sm">다시 돌리기</button>
+              <button className="btn btn-md btn-block">다시 업로드하기</button>
             </Link>
             <DownloadButton />
           </div>
