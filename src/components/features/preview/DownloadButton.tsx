@@ -1,13 +1,14 @@
 'use client';
 
 import { deleteTempDirectory, downloadPdfFile } from '@/apis/s3';
+import { NOTION_CV_LANDING_URL } from '@/constants/link';
 import { ROUTES } from '@/constants/routes';
 import { useFileStore } from '@/store/useFileStore';
 import { useRouter } from 'next/navigation';
 
 export function DownloadButton() {
   const router = useRouter();
-  const { fileId, resetFileId } = useFileStore();
+  const { fileId } = useFileStore();
 
   const goToHome = () => {
     router.push(ROUTES.HOME);
@@ -38,7 +39,6 @@ export function DownloadButton() {
     const isFulfilled = await downloadFile(fileId);
     alert(isFulfilled ? '다운로드가 완료되었습니다🥳' : '다운로드에 실패했습니다. 다시 시도해 주세요.');
     router.replace(NOTION_CV_LANDING_URL);
-    goToHome();
   };
 
   return (
