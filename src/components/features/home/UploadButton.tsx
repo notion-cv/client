@@ -68,7 +68,17 @@ export default function UploadButton() {
   return (
     <>
       <button type="button" className="btn btn-primary" onClick={handleButtonClick}>
-        .zip 파일 업로드하기
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-5"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        파일 등록하고 변환하기
       </button>
       <input type="file" accept=".zip" hidden ref={inputRef} onChange={handleFileChange} />
     </>
