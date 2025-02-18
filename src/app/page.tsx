@@ -1,3 +1,4 @@
+import GuideButton from '@/components/features/home/HomeGuideButton';
 import UploadButton from '@/components/features/home/UploadButton';
 import Image from 'next/image';
 
@@ -19,10 +20,8 @@ export default function Home() {
         <section className="flex flex-col items-center gap-2">
           <UploadButton />
           <div className="flex items-center gap-2">
-            <span className="text-md text-md">더 궁금한 내용이 있다면?</span>
-            <button className="btn btn-ghost btn-md bg-transparen text-primary hover:border-transparent hover:bg-blue-50">
-              사용가이드 보기
-            </button>
+            <span className="text-md text-md whitespace-nowrap">더 궁금한 내용이 있다면?</span>
+            <GuideButton />
           </div>
         </section>
       </div>
