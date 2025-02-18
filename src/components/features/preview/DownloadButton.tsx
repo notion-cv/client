@@ -37,7 +37,7 @@ export function DownloadButton() {
     }
     const isFulfilled = await downloadFile(fileId);
     alert(isFulfilled ? '다운로드가 완료되었습니다🥳' : '다운로드에 실패했습니다. 다시 시도해 주세요.');
-    resetFileId();
+    router.replace(NOTION_CV_LANDING_URL);
     goToHome();
   };
 
