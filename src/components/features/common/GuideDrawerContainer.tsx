@@ -10,7 +10,7 @@ export default function GuideDrawerContainer({ drawerId, children }: { drawerId:
       <div className="drawer-content">{children}</div>
       <div className="drawer-side">
         <label htmlFor={drawerId} aria-label="close sidebar" className="drawer-overlay"></label>
-        <section className="menu text-base-content min-h-full w-120 max-w-full bg-white p-4">
+        <section className="menu text-base-content min-h-full w-150 max-w-full bg-white">
           <iframe src={NOTION_CV_GUIDE_URL} className="grow" />
         </section>
       </div>
