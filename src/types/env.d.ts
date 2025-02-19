@@ -6,6 +6,7 @@ declare global {
       AWS_REGION: string;
       AWS_NOTION_CV_BUCKET_NAME: string;
       LAMBDA_FUNCTION_NAME: string;
+      GA_ID: string;
     }
   }
 }

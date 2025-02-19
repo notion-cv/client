@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layouts/Header';
 import PageLoader from '@/components/common/PageLoader';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   title: 'Notion CV',
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Header />
         <main className="h-dvh max-h-dvh overflow-hidden pt-11">{children}</main>
         <PageLoader />
+        <GoogleAnalytics gaId={process.env.GA_ID} />
       </body>
     </html>
   );
