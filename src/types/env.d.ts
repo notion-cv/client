@@ -6,7 +6,8 @@ declare global {
       AWS_REGION: string;
       AWS_NOTION_CV_BUCKET_NAME: string;
       LAMBDA_FUNCTION_NAME: string;
-      GA_ID: string;
+      NEXT_PUBLIC_GOOGLE_ADS_ID: string;
+      NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_ID: string;
     }
   }
 }
