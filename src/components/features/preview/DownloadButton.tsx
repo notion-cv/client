@@ -8,14 +8,14 @@ import { useRouter } from 'next/navigation';
 
 export function DownloadButton() {
   const router = useRouter();
-  const { fileId, downloadToken } = useFileStore();
+  const { fileId } = useFileStore();
 
   const goToHome = () => {
     router.push(ROUTES.HOME);
   };
 
-  const downloadFile = async (fileId: string, downloadToken: string) => {
-    const { fileUrl } = await downloadPdfFile(downloadToken);
+  const downloadFile = async (fileId: string) => {
+    const { fileUrl } = await downloadPdfFile();
     const link = document.createElement('a');
     link.href = fileUrl;
     link.download = `cv_result.pdf`;
@@ -31,12 +31,12 @@ export function DownloadButton() {
   };
 
   const handleClickDownload = async () => {
-    if (!fileId || !downloadToken) {
+    if (!fileId) {
       alert('업로드 기록이 없습니다.\n다시 시도해 주세요.');
       goToHome();
       return;
     }
-    const isFulfilled = await downloadFile(fileId, downloadToken);
+    const isFulfilled = await downloadFile(fileId);
     alert(isFulfilled ? '다운로드가 완료되었습니다🥳' : '다운로드에 실패했습니다. 다시 시도해 주세요.');
     router.replace(NOTION_CV_LANDING_URL);
   };

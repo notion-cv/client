@@ -1,11 +1,16 @@
+import { TOKEN_COOKIE_KEY } from '@/constants/token';
 import { s3Client } from '@/lib/aws/config';
 import { TokenManager } from '@/utils/TokenManager';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, props: { params: Promise<{ token: string }> }) {
-  const params = await props.params;
-  const token = params.token;
+export async function GET(request: Request) {
+  const cookies = request.headers.get('cookie');
+
+  const token = cookies
+    ?.split(';')
+    .find((c) => c.trim().startsWith(TOKEN_COOKIE_KEY))
+    ?.split('=')[1];
 
   if (!token || typeof token !== 'string') {
     return NextResponse.json({ error: '유효한 요청이 아닙니다.' }, { status: 400 });
@@ -35,6 +40,7 @@ export async function GET(request: Request, props: { params: Promise<{ token: st
       headers: {
         'Content-Type': 'application/application/pdf', // 바이너리 데이터 전송
         'Content-Disposition': `attachment; filename=resume_${fileId}`, // 다운로드 옵션
+        'Set-Cookie': `download_token=; HttpOnly; Secure; SameSite=Strict; Path=/api/download; Max-Age=0`,
       },
     });
   } catch (e) {

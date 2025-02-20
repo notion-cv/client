@@ -9,8 +9,8 @@ export const uploadZipFile = async (fileId: string, zipFile: File) => {
   return response.json();
 };
 
-export const downloadPdfFile = async (downloadToken: string) => {
-  const response = await fetch(`/api/s3/temp/download/${downloadToken}`, {
+export const downloadPdfFile = async () => {
+  const response = await fetch(`/api/s3/temp/download`, {
     method: 'GET',
   });
   if (!response.ok) {

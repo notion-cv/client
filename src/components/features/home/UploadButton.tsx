@@ -15,13 +15,13 @@ import { useLoaderStore } from '@/store/useLoaderStore';
 
 export default function UploadButton() {
   const router = useRouter();
-  const { saveFileId, saveDownloadToken, resetFileInfo } = useFileStore();
+  const { saveFileId, resetFileId } = useFileStore();
   const { startLoading, endLoading } = useLoaderStore();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onFileChangeError = () => {
-    resetFileInfo();
+    resetFileId();
     router.push(ROUTES.HOME);
   };
 
@@ -50,10 +50,9 @@ export default function UploadButton() {
       if (!res.fileId) throw new Error('일시적인 문제가 발생했습니다.');
 
       const lambdaRes: InvokeLambdaDto = await callPdfConverter(fileId);
-      if (!lambdaRes.id || !lambdaRes.token) throw new Error('PDF 변환에 실패했습니다.');
+      if (!lambdaRes.id) throw new Error('PDF 변환에 실패했습니다.');
 
       saveFileId(lambdaRes.id);
-      saveDownloadToken(lambdaRes.token);
 
       router.push(ROUTES.PREVIEW);
       endLoading();

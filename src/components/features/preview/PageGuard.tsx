@@ -14,12 +14,12 @@ export default function PageGuard() {
   const isExecuted = useRef<boolean>(false); // 실행 여부 추적
 
   const router = useRouter();
-  const { fileId, downloadToken, resetFileInfo } = useFileStore();
+  const { fileId, resetFileId } = useFileStore();
 
   useEffect(() => {
-    if (!fileId || !downloadToken) {
+    if (!fileId) {
       alert('업로드 된 파일이 확인되지 않습니다.\n다시 시도해 주세요.');
-      resetFileInfo();
+      resetFileId();
       router.replace(ROUTES.HOME);
       return;
     }

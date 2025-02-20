@@ -4,6 +4,7 @@ import { checkIsUUID } from '@/utils/uuid';
 import { lambdaClient } from '@/lib/aws/config';
 import { InvokeLambdaDto } from '@/types/dto/lambda.dto';
 import { TokenManager } from '@/utils/TokenManager';
+import { TOKEN_COOKIE_KEY } from '@/constants/token';
 
 export async function POST(request: Request) {
   try {
@@ -36,10 +37,13 @@ export async function POST(request: Request) {
 
     const response: InvokeLambdaDto = {
       id: resBody.id,
-      token: newToken,
     };
 
-    return NextResponse.json(response);
+    return new NextResponse(JSON.stringify(response), {
+      headers: {
+        'Set-Cookie': `${TOKEN_COOKIE_KEY}${newToken}; HttpOnly; Secure; SameSite=Strict; Path=/api/s3/temp/download`,
+      },
+    });
   } catch (e) {
     console.error('Lambda invocationerror: ', e);
     return NextResponse.json({ error: 'lambda function 실행에 실패했습니다.' }, { status: 500 });
