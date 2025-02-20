@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { checkIsUUID } from '@/utils/uuid';
 import { lambdaClient } from '@/lib/aws/config';
 import { InvokeLambdaDto } from '@/types/dto/lambda.dto';
+import { TokenManager } from '@/utils/TokenManager';
 
 export async function POST(request: Request) {
   try {
@@ -30,8 +31,12 @@ export async function POST(request: Request) {
     const parsed = JSON.parse(result);
     const resBody = JSON.parse(parsed.body);
 
+    const fileId = resBody.id;
+    const newToken = TokenManager.generateToken(fileId);
+
     const response: InvokeLambdaDto = {
       id: resBody.id,
+      token: newToken,
     };
 
     return NextResponse.json(response);

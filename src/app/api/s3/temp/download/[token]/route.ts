@@ -1,15 +1,21 @@
 import { s3Client } from '@/lib/aws/config';
+import { TokenManager } from '@/utils/TokenManager';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+export async function GET(request: Request, props: { params: Promise<{ token: string }> }) {
   const params = await props.params;
-  const id = params.id;
-  if (!id || typeof id !== 'string') {
-    return NextResponse.json({ error: '유효한 ID가 아닙니다.' }, { status: 400 });
+  const token = params.token;
+
+  if (!token || typeof token !== 'string') {
+    return NextResponse.json({ error: '유효한 요청이 아닙니다.' }, { status: 400 });
+  }
+  const fileId = TokenManager.validateToken(token);
+  if (!fileId) {
+    return NextResponse.json({ error: '유효한 요청이 아닙니다.' }, { status: 400 });
   }
   try {
-    const key = `temp/${id}/${id}.result.pdf`;
+    const key = `temp/${fileId}/${fileId}.result.pdf`;
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_NOTION_CV_BUCKET_NAME,
       Key: key,
@@ -28,7 +34,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
       status: 200,
       headers: {
         'Content-Type': 'application/application/pdf', // 바이너리 데이터 전송
-        'Content-Disposition': `attachment; filename=resume_${id}`, // 다운로드 옵션
+        'Content-Disposition': `attachment; filename=resume_${fileId}`, // 다운로드 옵션
       },
     });
   } catch (e) {
